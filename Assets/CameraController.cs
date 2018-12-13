@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour 
+{
+	
 	Vector2 rotation = new Vector2 (0, 0);
+	
 	public float speed = 3;
 
 	private void Start()
@@ -11,7 +14,8 @@ public class CameraController : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	void Update () {
+	void Update () 
+	{
 		rotation.y += Input.GetAxis ("Mouse X");
 		rotation.x += -Input.GetAxis ("Mouse Y");
 		transform.eulerAngles = (Vector2)rotation * speed;

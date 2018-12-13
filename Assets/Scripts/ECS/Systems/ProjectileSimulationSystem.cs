@@ -6,20 +6,25 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // 1.5ms for ~1000 projectiles
 
 namespace ProjectileSystem
 {
+    public class DestroyBarrier : BarrierSystem { }
+    
     public class ProjectileSimulationSystem : JobComponentSystem
     {
         float _gravity = -9.81f;
 
-        [BurstCompile(Accuracy=Accuracy.High, Support=Support.Strict)]
+        [BurstCompile]
         struct ProjectileHitUpdateJob : IJobParallelFor
         {
             public ComponentDataArray<Projectile> Projectiles;
             public NativeArray<RaycastHit> RaycastHits;
+            public EntityArray Entities;
+            [ReadOnly] public EntityCommandBuffer CommandBuffer;
             public float DeltaTime;
             
             public void Execute(int i)
@@ -27,13 +32,19 @@ namespace ProjectileSystem
                 bool wasHit = RaycastHits[i].normal != Vector3.zero;
                 
                 Projectile proj = Projectiles[i];
-                
-                proj.Destroy = wasHit;
-                proj.TimeAlive += DeltaTime;
 
+                if (wasHit)
+                {
+                    CommandBuffer.DestroyEntity(Entities[i]);
+                    return;
+                }
+
+                //proj.Destroy = wasHit;
+                proj.TimeAlive += DeltaTime;
                 Projectiles[i] = proj;
             }
         }
+        
         
         [BurstCompile(Accuracy=Accuracy.High, Support=Support.Strict)]
         struct PrepareRaycastCommands : IJobParallelFor
@@ -41,9 +52,9 @@ namespace ProjectileSystem
             public float DeltaTime;
             public float Gravity;
             
-            public NativeArray<RaycastCommand> Raycasts;
+            public NativeArray<RaycastCommand> Commands;
             public ComponentDataArray<Projectile> Projectiles;
-
+            
             public void Execute(int i)
             {
                 Projectile proj = Projectiles[i];
@@ -53,8 +64,8 @@ namespace ProjectileSystem
                 float3 direction     = math.normalize(nextPosition - proj.CurrentPosition);
                 float  positionDelta = math.distance(nextPosition, proj.CurrentPosition);
 
-                Raycasts[i] = new RaycastCommand(proj.CurrentPosition, direction, positionDelta, 0);
-
+                Commands[i] = new RaycastCommand(proj.CurrentPosition, direction, positionDelta);
+                
                 proj.CurrentPosition = nextPosition;
                 
                 Projectiles[i] = proj;
@@ -65,11 +76,13 @@ namespace ProjectileSystem
         public struct Data
         {
             public readonly int Length;
+            [ReadOnly] public EntityArray Entities;
             public ComponentDataArray<Projectile> Projectile;
         }
         
         [Inject] private Data _data;
         
+        [Inject] private DestroyBarrier _destroyBarrier;
         
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
@@ -80,36 +93,37 @@ namespace ProjectileSystem
             
             var raycastCommandsJob = new PrepareRaycastCommands
             {
-                DeltaTime = Time.deltaTime,
-                Gravity = _gravity,
-                Raycasts = raycastCommands,
+                DeltaTime   = Time.deltaTime,
+                Gravity     = _gravity,
+                Commands    = raycastCommands,
                 Projectiles = _data.Projectile
             };
-            
+
             // SCHEDULE Job for creating raycast commands
             var raycastDependency = raycastCommandsJob.Schedule(amountOFProjectiles, 500);
-
+            
             
             // SCHEDULE Raycast job
             JobHandle raycastJobHandle =
                 RaycastCommand.ScheduleBatch(raycastCommands, raycastHits, 500, raycastDependency);
-
             
             // Update Projectiles with new state
             var projectileStateUpdate = new ProjectileHitUpdateJob
             {
                 Projectiles = _data.Projectile,
                 RaycastHits = raycastHits,
-                DeltaTime = Time.deltaTime
+                DeltaTime = Time.deltaTime,
+                Entities  = _data.Entities,
+                CommandBuffer = _destroyBarrier.CreateCommandBuffer()
             };
             
-            JobHandle stateUpdateJob = projectileStateUpdate.Schedule(amountOFProjectiles, 1000, raycastJobHandle);
+            JobHandle stateUpdateJob = projectileStateUpdate.Schedule(amountOFProjectiles, 500, raycastJobHandle);
             
             stateUpdateJob.Complete();
             
             raycastCommands.Dispose();
             raycastHits.Dispose();
-
+            
             return stateUpdateJob;
         }
     }

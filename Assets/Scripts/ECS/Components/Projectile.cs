@@ -10,6 +10,5 @@ namespace ECS.Components
         public float3 Velocity;
         public float  TimeAlive;
         public float  Damage;
-        public TBool  Destroy;
     }
 }
