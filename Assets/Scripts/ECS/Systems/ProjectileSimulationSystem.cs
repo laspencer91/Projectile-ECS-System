@@ -9,7 +9,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // 1.5ms for ~1000 projectiles
-
+// 0.35ms for 1000 projectiles - After ECS Optimization
+// 3.8ms for 10000 projectiles - After ECS Optimization
 namespace ProjectileSystem
 {
     public class DestroyBarrier : BarrierSystem { }
@@ -18,20 +19,19 @@ namespace ProjectileSystem
     {
         float _gravity = -9.81f;
 
-        [BurstCompile]
+        [BurstCompile(Accuracy=Accuracy.High, Support=Support.Strict)]
         struct ProjectileHitUpdateJob : IJobParallelFor
         {
+            [ReadOnly] public EntityCommandBuffer CommandBuffer;
+            
             public ComponentDataArray<Projectile> Projectiles;
             public NativeArray<RaycastHit> RaycastHits;
             public EntityArray Entities;
-            [ReadOnly] public EntityCommandBuffer CommandBuffer;
             public float DeltaTime;
             
             public void Execute(int i)
             {
                 bool wasHit = RaycastHits[i].normal != Vector3.zero;
-                
-                Projectile proj = Projectiles[i];
 
                 if (wasHit)
                 {
@@ -39,7 +39,7 @@ namespace ProjectileSystem
                     return;
                 }
 
-                //proj.Destroy = wasHit;
+                Projectile proj = Projectiles[i];
                 proj.TimeAlive += DeltaTime;
                 Projectiles[i] = proj;
             }
@@ -86,10 +86,11 @@ namespace ProjectileSystem
         
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            int amountOFProjectiles = _data.Length;
+            int numOFProjectiles = _data.Length;
+            int batchSize = 500;
             
-            var raycastCommands = new NativeArray<RaycastCommand>(amountOFProjectiles, Allocator.TempJob);
-            var raycastHits     = new NativeArray<RaycastHit>(amountOFProjectiles, Allocator.TempJob);
+            var raycastCommands = new NativeArray<RaycastCommand>(numOFProjectiles, Allocator.TempJob);
+            var raycastHits     = new NativeArray<RaycastHit>(numOFProjectiles, Allocator.TempJob);
             
             var raycastCommandsJob = new PrepareRaycastCommands
             {
@@ -100,12 +101,12 @@ namespace ProjectileSystem
             };
 
             // SCHEDULE Job for creating raycast commands
-            var raycastDependency = raycastCommandsJob.Schedule(amountOFProjectiles, 500);
-            
+            JobHandle raycastDependency = 
+                raycastCommandsJob.Schedule(numOFProjectiles, batchSize);
             
             // SCHEDULE Raycast job
             JobHandle raycastJobHandle =
-                RaycastCommand.ScheduleBatch(raycastCommands, raycastHits, 500, raycastDependency);
+                RaycastCommand.ScheduleBatch(raycastCommands, raycastHits, batchSize, raycastDependency);
             
             // Update Projectiles with new state
             var projectileStateUpdate = new ProjectileHitUpdateJob
@@ -117,7 +118,7 @@ namespace ProjectileSystem
                 CommandBuffer = _destroyBarrier.CreateCommandBuffer()
             };
             
-            JobHandle stateUpdateJob = projectileStateUpdate.Schedule(amountOFProjectiles, 500, raycastJobHandle);
+            JobHandle stateUpdateJob = projectileStateUpdate.Schedule(numOFProjectiles, batchSize, raycastJobHandle);
             
             stateUpdateJob.Complete();
             

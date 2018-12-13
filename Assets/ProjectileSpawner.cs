@@ -10,7 +10,7 @@ public class ProjectileSpawner : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			for (int i = 0; i < 500; i++)
+			for (int i = 0; i < 200; i++)
 				EcsEntityManager.CreateProjectile(transform.position, transform.forward * 303, 10);
 		}
 	}

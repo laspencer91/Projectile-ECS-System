@@ -25,7 +25,6 @@ namespace ECS.Statics
             
             entityManager.SetComponentData(projectile, new Projectile
             {
-                StartPosition   = new float3(startPosition.x, startPosition.y, startPosition.z),
                 CurrentPosition = new float3(startPosition.x, startPosition.y, startPosition.z),
                 Velocity        = new float3(velocity.x, velocity.y, velocity.z),
                 Damage          = damage
