@@ -6,8 +6,8 @@ namespace ECS.Components
 {
     public struct Projectile : IComponentData
     {
+        public float3 Position;
         public float3 Velocity;
-        public float  TimeAlive;
         public float  Damage;
     }
 }

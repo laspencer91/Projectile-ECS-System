@@ -36,7 +36,7 @@ namespace ECS.Statics
 
         private static void CreateArchetypes()
         {
-            Projectile = EntityManager.CreateArchetype(typeof(Position), typeof(Rotation), typeof(Projectile));
+            Projectile = EntityManager.CreateArchetype(typeof(Position), typeof(Rotation), typeof(Projectile), typeof(LifetimeComponent), typeof(DestroyComponent));
         }
         
         private static void LoadPrototypes()
@@ -58,19 +58,19 @@ namespace ECS.Statics
             return result;
         }
         
-        public static void CreateProjectile(Vector3 startPosition, Vector3 velocity, float damage)
+        public static void CreateProjectile(Vector3 startPosition, Vector3 velocity, Quaternion rotation, float lifetime, float damage)
         {
             Entity projectile = EntityManager.CreateEntity(Projectile);
             
             EntityManager.SetComponentData(projectile, new Projectile
             {
                 Velocity  = new float3(velocity.x, velocity.y, velocity.z),
-                Damage    = damage
+                Damage    = damage,
+                Position  = new float3(startPosition.x, startPosition.y, startPosition.z)
             });
             
-            EntityManager.SetComponentData(projectile, new Position { Value = new float3(startPosition.x, startPosition.y, startPosition.z)});
-            EntityManager.SetComponentData(projectile, new Rotation { Value = quaternion.LookRotation(new float3(0.0f, 0.0f, -1.0f), math.up())});
-            EntityManager.AddSharedComponentData(projectile, ProjectileRenderer);
+            EntityManager.SetComponentData(projectile, new Rotation { Value = rotation});
+            EntityManager.SetComponentData(projectile, new LifetimeComponent { MaxTimeAlive = lifetime});
         }
     }
 }

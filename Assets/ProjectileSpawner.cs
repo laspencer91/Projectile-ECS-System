@@ -10,8 +10,8 @@ public class ProjectileSpawner : MonoBehaviour
 	{
 		if (Input.GetMouseButton(0))
 		{
-			for (int i = 0; i < 1; i++)
-				EcsBootstrap.CreateProjectile(transform.position, transform.forward * 5, 10);
+			for (int i = 0; i < 100; i++)
+				EcsBootstrap.CreateProjectile(transform.position, transform.forward * 600, transform.rotation, 3, 10);
 		}
 	}
 }
