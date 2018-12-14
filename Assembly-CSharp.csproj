@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7</LangVersion>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup>
@@ -14,7 +14,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -57,76 +57,76 @@
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\ProjectileSpawner.cs" />
     <Compile Include="Assets\Scripts\ECS\Components\Projectile.cs" />
-    <Compile Include="Assets\Scripts\ECS\Statics\EcsEntityManager.cs" />
+    <Compile Include="Assets\Scripts\ECS\Statics\EcsBootstrap.cs" />
     <Compile Include="Assets\Scripts\ECS\Systems\ProjectileSimulationSystem.cs" />
     <Reference Include="Unity.Entities.Properties">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.Properties.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.Properties.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Properties.Codegen">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Properties.Codegen.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Properties.Codegen.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Jobs">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Jobs.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Jobs.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Jobs.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Jobs.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Jobs.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Entities.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Properties">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Properties.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rendering.Hybrid">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Properties.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Properties.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Entities">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Transforms">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Transforms.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Transforms.Hybrid">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Rendering.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Properties.Editor">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Properties.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities.Hybrid">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Entities">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms.Editor">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Transforms.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Transforms.Hybrid">
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.0f2/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -330,22 +330,22 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.0f2/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/PackageCache/com.unity.ads@2.3.1/Runtime/UnityEngine.Advertisements.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>C:/Users/laspe/Documents/Misc/Projects/Projectile-ECS-System/Library/PackageCache/com.unity.collections@0.0.9-preview.10/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>E:/GAME DEV/LIBRARIES AND TOOLS/Repositories/Projectile-ECS-System/Library/PackageCache/com.unity.collections@0.0.9-preview.10/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.0f2/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

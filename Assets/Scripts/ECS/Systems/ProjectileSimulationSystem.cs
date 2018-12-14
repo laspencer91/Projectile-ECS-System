@@ -5,6 +5,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -17,7 +18,7 @@ namespace ProjectileSystem
     
     public class ProjectileSimulationSystem : JobComponentSystem
     {
-        float _gravity = -9.81f;
+        float _gravity = -.06f;
 
         [BurstCompile(Accuracy=Accuracy.High, Support=Support.Strict)]
         struct ProjectileHitUpdateJob : IJobParallelFor
@@ -52,21 +53,24 @@ namespace ProjectileSystem
             public float DeltaTime;
             public float Gravity;
             
-            public NativeArray<RaycastCommand> Commands;
+            public NativeArray<RaycastCommand>    Commands;
             public ComponentDataArray<Projectile> Projectiles;
+            public ComponentDataArray<Position>   Positions;
             
             public void Execute(int i)
             {
                 Projectile proj = Projectiles[i];
                 proj.Velocity.y += Gravity * DeltaTime;
-                
-                float3 nextPosition  = proj.CurrentPosition + proj.Velocity * DeltaTime;
-                float3 direction     = math.normalize(nextPosition - proj.CurrentPosition);
-                float  positionDelta = math.distance(nextPosition, proj.CurrentPosition);
 
-                Commands[i] = new RaycastCommand(proj.CurrentPosition, direction, positionDelta);
+                float3 position = Positions[i].Value;
                 
-                proj.CurrentPosition = nextPosition;
+                float3 nextPosition  = position + proj.Velocity * DeltaTime;
+                float3 direction     = math.normalize(nextPosition - position);
+                float  positionDelta = math.distance(nextPosition, position);
+
+                Commands[i]  = new RaycastCommand(position, direction, positionDelta);
+
+                Positions[i] = new Position { Value = nextPosition };
                 
                 Projectiles[i] = proj;
             }
@@ -78,6 +82,8 @@ namespace ProjectileSystem
             public readonly int Length;
             [ReadOnly] public EntityArray Entities;
             public ComponentDataArray<Projectile> Projectile;
+            public ComponentDataArray<Position> Position;
+            [ReadOnly] public ComponentDataArray<Rotation> Rotation;
         }
         
         [Inject] private Data _data;
@@ -97,7 +103,8 @@ namespace ProjectileSystem
                 DeltaTime   = Time.deltaTime,
                 Gravity     = _gravity,
                 Commands    = raycastCommands,
-                Projectiles = _data.Projectile
+                Projectiles = _data.Projectile,
+                Positions   = _data.Position,
             };
 
             // SCHEDULE Job for creating raycast commands
